@@ -9,7 +9,7 @@ Hermes logistics V 3.0
 Este sistema en su version 3.0 permite realizar transacciones para adquirir funciones del programa.
 
 En la parte de la esquina superior izquierda podemos ver un menu deplegable que apresionas nos va a motrar 4 opciones que son:
-dasadsdsdasdsdasddasa
+
 * Ordenes: es la pagina principal donde puese visualizar que ordenes han sido creadas.
 * Camiones: en esta pagina podemos ver la informacion de los camiones que estan registrados.
 * Trailer: en esta pagina podemos ver la informacion de los trailers que estan registrados.

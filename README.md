@@ -53,6 +53,9 @@ Esta interancion es la misma en las siguientes 2 opciones que son Trailer y Cond
 * Mauricio García Hernández
    https://github.com/maugh108
 
+* Carlos Ortiz
+   https://github.com/carlosgortiz
+
 ## Versiones 📌
 Version 2.01 https://github.com/maugh108/hermesV2
 
@@ -72,5 +75,8 @@ Version 2.01 https://github.com/maugh108/hermesV2
   https://github.com/AlbertoGuajardo22
  
 * Mauricio García Hernández
-   https://github.com/maugh108
+  https://github.com/maugh108
+
+* Carlos Ortiz
+  https://github.com/carlosgortiz
 

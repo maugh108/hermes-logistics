@@ -1,11 +1,12 @@
-## HERMES LOGISRTICS V 2.01
+## HERMES LOGISTICS V 3.0
 
-https://github.com/maugh108/hermesV2
+https://github.com/maugh108/hermes-logistics
 
 ## Introducción 📋
-Hermes logistics V 2.01
 
-Este sistema en su version 2.01 nos permite desplegar la infomacion de una orden de trabajo con la infomacion de conductor, camion y numero de trailer.
+Hermes logistics V 3.0
+
+Este sistema en su version 3.0 permite realizar transacciones para adquirir funciones del programa.
 
 En la parte de la esquina superior izquierda podemos ver un menu deplegable que apresionas nos va a motrar 4 opciones que son:
 
@@ -53,15 +54,18 @@ Esta interancion es la misma en las siguientes 2 opciones que son Trailer y Cond
    https://github.com/maugh108
 
 ## Versiones 📌
-Version 2.01
+Version 2.01 https://github.com/maugh108/hermesV2
 
 ## Construido con 🛠️
 * HTML
 * CSS
 * NODE
 * EXPRESS
-* HANDLEBARS
-* SQL
+* REACT
+* GraphQL
+* MongoDB
+* Mongoose
+* Heroku
 
 ## Autores ✒️
 * Alberto Manuel Guajardo Quintanilla 

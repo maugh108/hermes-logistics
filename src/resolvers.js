@@ -14,8 +14,15 @@ export const resolvers = {
         },
         users: async () => {
             return await User.find()
+        },
+        orders: async () => {
+            return await Order.find()
+        },
+        trailers: async () => {
+            return await Trailer.find()
         }
     },
+
     Mutation: {
         createTask(_, { input }){
             input._id = task.length

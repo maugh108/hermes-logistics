@@ -15,6 +15,11 @@ export const resolvers = {
         users: async () => {
             return await User.find()
         },
+        order: async (root, args) => {
+            const {id} = args
+            const order = await Order.findById(id)
+            return order
+        },
         orders: async () => {
             return await Order.find()
         },
@@ -68,6 +73,21 @@ export const resolvers = {
             }
             await trailer.save()
             return trailer
+        },
+        async deleteOrder  (_, {input}) {
+            const id = input
+            const order = await Order.findByIdAndDelete(id)
+            return order
+        },
+        async deleteTrailer  (_, {input}) {
+            const id = input
+            const trailer = await Trailer.findByIdAndDelete(id)
+            return trailer
+        },
+        async deleteUser (_, {input}){
+            const id = input
+            const user = await User.findByIdAndDelete(id)
+            return user
         }
     }
 };

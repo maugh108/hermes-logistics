@@ -14,7 +14,14 @@ body {
 .grid-margins{
   margin: 0 80px;
 }
-
+.max-dash-h{
+  max-height: calc(100vh - 120px);
+  overflow: auto;
+}
 td {
   color:white
+}
+
+.pointer{
+  cursor: pointer;
 }

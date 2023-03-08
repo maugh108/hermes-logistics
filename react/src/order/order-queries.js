@@ -9,3 +9,13 @@ query{
   }
 }
 `
+export const FETCH_ORDER = gql`
+query findOrderById($id: String!){
+  order(id: $id) {
+    _id
+    number
+    pickup
+    status
+  }
+}
+`

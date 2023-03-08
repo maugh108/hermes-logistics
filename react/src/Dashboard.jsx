@@ -1,38 +1,33 @@
+
+
+import { useMutation } from '@apollo/client'
+import { CREATE_USER } from './user/user-mutations'
+import { FETCH_USERS } from './user/user-queries'
+import { useFetchUsers } from './user/user-hooks'
 import './App.css'
 import DashboardOrder from './components/DashboardOrder'
 import { Grid,  GridItem } from '@chakra-ui/react'
-import { useFetchOrders } from './order/order-hooks'
-import { useEffect } from 'react'
 const Dashboard = () => {
-    const {data, loading, error} = useFetchOrders()
-
-    
-    useEffect(() => {
-    }, [data])
+    const {data, loading, error} = useFetchUsers()
+    const [ addUser ] = useMutation(CREATE_USER, {
+        refetchQueries: [FETCH_USERS]
+    })
+    const postUser = () => {
+        const firstName = 'Alberto'
+        const lastName = 'Guajardo'
+        const age = 31
+        addUser({variables:{firstName, lastName, age}})
+    }
     return (
         <>
             <Grid className='grid-margins' templateColumns='repeat(3, 1fr)' gap={10}>
-                <GridItem className='max-dash-h' w='100%' h='calc(100vh - 120px)' bg='blackAlpha.600'>
-                    {data?.orders.filter(o => o.status==='NEW').map(o => {
-                        return (
-                            <DashboardOrder key={o._id} order={o}/>
-                        )
-                    })}
+                <GridItem w='100%' h='calc(100vh - 120px)' bg='blackAlpha.600'>
+                    <DashboardOrder/>
                 </GridItem>
-                <GridItem className='max-dash-h' w='100%' h='calc(100vh - 120px)' bg='blackAlpha.600'>
-                    {data?.orders.filter(o => o.status==='SEND').map(o => {
-                        return (
-                            <DashboardOrder key={o._id} order={o}/>
-                        )
-                    })}
+                <GridItem w='100%' h='calc(100vh - 120px)' bg='blackAlpha.600'>
+                    <DashboardOrder/>
                 </GridItem>
-                <GridItem className='max-dash-h' w='100%' h='calc(100vh - 120px)' bg='blackAlpha.600'>
-                    {data?.orders.filter(o => o.status==='DELIVERED').map(o => {
-                        return (
-                            <DashboardOrder key={o._id} order={o}/>
-                        )
-                    })}
-                </GridItem>
+                <GridItem w='100%' h='calc(100vh - 120px)' bg='blackAlpha.600' />
             </Grid>
         </>
     )

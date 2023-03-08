@@ -1,28 +1,28 @@
 import React from 'react'
 import { Box, Card, CardBody, CardHeader, Heading, Stack, StackDivider, Text } from '@chakra-ui/react'
 import '../css/DashboardOrder.css'
-const DashboardOrder = ({order}) => {
+const DashboardOrder = () => {
     return (
         <Card m='5' bg='whiteAlpha.300'>
             <CardHeader>
-                <Heading size='md'>Order #{order.number}</Heading>
+                <Heading size='md'>Order #542243</Heading>
             </CardHeader>
             <CardBody>
                 <Stack divider={<StackDivider/>} spacing='4'>
                     <Box>
                         <Heading>
-                            Pickup
+                            Summary
                         </Heading>
                         <Text pt='2' fontSize='sm'>
-                            {order.pickup}
+                            View a summary of all your clients overt the last month.
                         </Text>
                     </Box>
                     <Box>
                         <Heading size={'xs'} textTransform='uppercase'>
-                            Status
+                            Overview
                         </Heading>
                         <Text pt='2' fontSize={'sm'}>
-                            {order.status}
+                            Check out the overview of your clients.
                         </Text>
                     </Box>
                 </Stack>

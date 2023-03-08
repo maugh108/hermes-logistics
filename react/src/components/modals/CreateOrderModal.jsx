@@ -3,6 +3,8 @@ import React from "react";
 import {
     FormControl,
     FormLabel,
+    FormErrorMessage,
+    FormHelperText,
   } from '@chakra-ui/react'
 import { CREATE_ORDER } from "../../order/order-mutations";  
 import { useMutation } from "@apollo/client";
@@ -26,7 +28,7 @@ const CreateOrderModal = () => {
     return (
       <>
         <Button bg="green.400" color='blackAlpha.900'  onClick={onOpen}>Create Order</Button>
-        
+  
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
@@ -48,7 +50,9 @@ const CreateOrderModal = () => {
                     </Select>
                 </FormControl>
                 <ModalFooter>
-                    <Button colorScheme='red' mr={3} onClick={onClose}> Close </Button>
+                    <Button colorScheme='red' mr={3} onClick={onClose}>
+                        Close
+                    </Button>
                     <Button colorScheme='blue' type='submit' >Save</Button>
                 </ModalFooter>
             </form>

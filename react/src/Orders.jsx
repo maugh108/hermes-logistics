@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
     Table,
     Thead,
@@ -12,38 +12,18 @@ import {
     useDisclosure,
   } from '@chakra-ui/react'
 import CreateOrderModal from "./components/modals/CreateOrderModal";
-import { useFetchOrder, useFetchOrders } from "./order/order-hooks";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import './App'
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { FETCH_ORDER, FETCH_ORDERS } from "./order/order-queries";
-import ExpandOrderModal from "./components/modals/ExpandOrderModal";
-import { DELETE_ORDER } from "./order/order-mutations";
+import { useFetchOrder } from "./order/order-hooks";
 const Orders = () => {
-    const {data, loading, error} = useFetchOrders()
-    const [findOrderById,result] = useFetchOrder()
-    const [removeOrder] = useMutation(DELETE_ORDER, {
-        refetchQueries: [FETCH_ORDERS]
-    })
-    const [currentOrder, setCurrentOrder] = useState(null)
-    
-    const UpdateOrder = async o =>  {
-        findOrderById({variables: {id: o._id}})
-    }
-    const DeleteOrder = (o) => {
-        const variables = { 
-            id : o._id
-        }
-        removeOrder({variables})
+    const {data, loading, error} = useFetchOrder()
+    const OpenOrder = () => {
+        OpenCreateOrder()
+        
     }
     useEffect(() => {
-        if(result.data && result.data.order && result.data.order._id){
-            setCurrentOrder(result.data?.order)
-        }
-    }, [data, result])
+    }, [data])
     return (
         <>
-            <CreateOrderModal />
+            <CreateOrderModal/>
             <TableContainer>
                 <Table variant='simple'>
                     <TableCaption>Orders table</TableCaption>
@@ -51,8 +31,7 @@ const Orders = () => {
                     <Tr>
                         <Th>Number</Th>
                         <Th>Pickup</Th>
-                        <Th>Status</Th>
-                        <Th></Th>
+                        <Th >Status</Th>
                     </Tr>
                     </Thead>
                     <Tbody>
@@ -69,10 +48,6 @@ const Orders = () => {
                                     <Td>{o.number}</Td>
                                     <Td>{o.pickup}</Td>
                                     <Td>{o.status}</Td>
-                                    <Td>
-                                        <ExpandOrderModal order={o}/>
-                                        <DeleteIcon color='red.500' boxSize={6}  className="pointer" onClick={() => {DeleteOrder(o)}}/>
-                                    </Td>
                                 </Tr>
                             )
                         })

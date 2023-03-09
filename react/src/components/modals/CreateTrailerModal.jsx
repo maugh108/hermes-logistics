@@ -1,24 +1,31 @@
 import { Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import {
     FormControl,
     FormLabel,
     FormErrorMessage,
     FormHelperText,
   } from '@chakra-ui/react'
+import { CREATE_ORDER } from "../../order/order-mutations";  
 import { useMutation } from "@apollo/client";
+import { FETCH_ORDERS } from "../../order/order-queries";
+import { EditIcon } from "@chakra-ui/icons";
 import { CREATE_TRAILER } from "../../trailer/trailer-mutations";
 import { FETCH_TRAILERS } from "../../trailer/trailer-queries";
-const CreateTrailerModal = () => {
+const ExpandTrailerModal = (trailer) => { 
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [id, setid] = useState(trailer.trailer ? trailer.trailer._id : '')
+    const [number, setnumber] = useState(trailer.trailer ? trailer.trailer.number : '')
+    const [type, setType] = useState(trailer.trailer ? trailer.trailer.type : '')
     const [ addTrailer ] = useMutation(CREATE_TRAILER, {
         refetchQueries: [FETCH_TRAILERS]
     })
     const expandOrder = e =>{
         e.preventDefault()
         const variables =  { 
-            number: e.target.number.value,
-            type: e.target.type.value
+            id,
+            number,
+            type
         }
         onClose()
         addTrailer({variables})
@@ -26,7 +33,7 @@ const CreateTrailerModal = () => {
     }
     return (
       <>
-        <Button bg="green.400" color='blackAlpha.900'  onClick={onOpen}>Create Trailer</Button>
+        <EditIcon color='blue.500' boxSize={6} className="pointer" onClick={onOpen}/>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
@@ -35,11 +42,12 @@ const CreateTrailerModal = () => {
             <ModalBody>
             <form onSubmit={expandOrder}>
                 <FormControl >
-                    <FormLabel>Trailer Number</FormLabel>
-                    <Input name="number" type='text' placeholder="Trailer number"/>
+                    <FormLabel>Trailer number</FormLabel>
+                    <input name="id" type="text" hidden value={id} onChange={evt => setid(evt.target.value)}/>
+                    <Input name="number" type='text' placeholder="Trailer number"  value={number} onChange={evt => setnumber(evt.target.value)}/>
                     <FormLabel>Trailer Type</FormLabel>
-                    <Select name="type" >
-                        <option defaultValue disabled>Trailer Type</option>
+                    <Select name="status" value={type} onChange={evt => setType(evt.target.value)}>
+                        <option defaultValue="" disabled>Trailer type</option>
                         <option value="COOL">Cool</option>
                         <option value="NORMAL">Normal</option>
                     </Select>
@@ -60,4 +68,4 @@ const CreateTrailerModal = () => {
     )
   }
 
-export default CreateTrailerModal
+export default ExpandTrailerModal 

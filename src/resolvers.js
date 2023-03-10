@@ -61,12 +61,16 @@ export const resolvers = {
         },
         async createOrder(_, {input}){
             let order = await Order.findById(input.id)
-            if(!order) order = new Order(input)
-            else{
-                order.number = input.number
-                order.pickup = input.pickup
-                order.status = input.status
-            }
+            if(!order) order = new Order()  
+            const trailer = await Trailer.findById(input.trailerId)
+            const truck = await Truck.findById(input.truckId)
+            const drivers = await Driver.find({'_id':{$in: input.driversIds}})
+            order.number = input.number
+            order.pickup = input.pickup
+            order.status = input.status 
+            order.trailer = trailer
+            order.truck = truck
+            order.drivers = drivers
             await order.save()
             return order
         },

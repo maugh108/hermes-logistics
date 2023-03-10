@@ -9,7 +9,6 @@ export const CREATE_USER = gql`
       username
       password
     }
-    
   }
 `
 
@@ -22,6 +21,5 @@ export const DELETE_USER = gql`
       username
       password
     }
-    
   }
 `

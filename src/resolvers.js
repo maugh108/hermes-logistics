@@ -1,5 +1,9 @@
 import { task } from './sample' 
 import User from './models/User'
+import Order from './models/Order';
+import Trailer from './models/Trailer';
+import Truck from './models/Truck';
+import Driver from './models/Driver';
 export const resolvers = { 
     Query: {
         hello: () => {
@@ -13,18 +17,25 @@ export const resolvers = {
             return task
         },
         users: async () => {
-            return await User.find()
+            const users = await User.find()
+            return users
+        },
+        orders: async () => {
+            return await Order.find().populate('trailer').populate('truck').populate('drivers')
+        },
+        trucks: async () => {
+            return await Truck.find()
         },
         order: async (root, args) => {
             const {id} = args
             const order = await Order.findById(id)
             return order
         },
-        orders: async () => {
-            return await Order.find()
-        },
         trailers: async () => {
             return await Trailer.find()
+        },
+        drivers: async () => {
+            return await Driver.find()
         }
     },
 
@@ -33,11 +44,6 @@ export const resolvers = {
             input._id = task.length
             task.push(input)
             return input
-        },
-        async createUser(_, { input }){
-            const user = new User(input)
-            await user.save()
-            return user
         },
         async createUser(_, { input }){
             console.log(input)
@@ -74,6 +80,27 @@ export const resolvers = {
             await trailer.save()
             return trailer
         },
+        async createTruck(_, {input}){
+            let truck = await Truck.findById(input.id)
+            if(!truck) truck = new Truck(input)
+            else{
+                truck.name = input.name
+                truck.brand = input.brand
+                truck.number = input.number
+            }
+            await truck.save()
+            return truck
+        },
+        async createDriver(_, {input}){
+            let driver = await Driver.findById(input.id)
+            if(!driver) driver = new Driver(input)
+            else{
+                driver.firstName = input.firstName
+                driver.lastName = input.lastName
+            }
+            await driver.save()
+            return driver
+        },
         async deleteOrder  (_, {input}) {
             const id = input
             const order = await Order.findByIdAndDelete(id)
@@ -88,6 +115,16 @@ export const resolvers = {
             const id = input
             const user = await User.findByIdAndDelete(id)
             return user
-        }
+        },
+        async deleteTruck(_, {input}){
+            const id = input
+            const truck = await Truck.findByIdAndDelete(id)
+            return truck
+        },
+        async deleteDriver(_, {input}){
+            const id = input
+            const driver = await Driver.findByIdAndDelete(id)
+            return driver
+        }        
     }
 };

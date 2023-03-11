@@ -8,41 +8,45 @@ import {
   } from '@chakra-ui/react'
 import { useMutation } from "@apollo/client";
 import { EditIcon } from "@chakra-ui/icons";
-import { CREATE_DRIVER } from "../../drivers/driver-mutations";
-import { FETCH_DRIVERS } from "../../drivers/driver.queries";
-const ExpandDriverModal = (driver) => { 
+import { CREATE_TRUCK } from "../../truck/truck-mutations";
+import { FETCH_TRUCKS } from "../../truck/truck-queries";
+const ExpandTruckModal = (truck) => { 
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [id, setid] = useState(driver.driver ? driver.driver._id : "")
-    const [firstName, setfirstName] = useState(driver.driver ? driver.driver.firstName : '')
-    const [lastName, setlastName] = useState(driver.driver ? driver.driver.lastName : '')
 
-    const [ addDriver ] = useMutation(CREATE_DRIVER, {
-        refetchQueries: [FETCH_DRIVERS]
+    const [id, setid] = useState(truck.truck ? truck.truck._id : '')
+    const [name, setname] = useState(truck.truck ? truck.truck.name : '')
+    const [brand, setbrand] = useState(truck.truck ? truck.truck.brand : '')
+    const [number, setnumber] = useState(truck.truck ? truck.truck.number : '')
+
+    const [ addTruck ] = useMutation(CREATE_TRUCK, {
+        refetchQueries: [FETCH_TRUCKS]
     })
-    const expandDriver = e =>{
+    const expandTruck = e =>{
         e.preventDefault()
         const variables =  { 
-            firstName,
-            lastName,
+            name,
+            brand,
+            number
         }
-        if(driver.driver) variables.id = driver.driver._id
+        if(truck.truck) variables.id = truck.truck._id
         onClose()
-        addDriver({variables})
+        addTruck({variables})
         
     }
     const OpenModal = () => {
-      setfirstName('')
-      setlastName('')
+      setname('')
+      setbrand('')
       setid('')
+      setnumber('')
       onOpen()
     }
     return (
       <>
         {
-          driver.driver ? 
+          truck.truck ? 
           <EditIcon color='blue.500' boxSize={6} className="pointer" onClick={onOpen}/>
           : 
-          <Button bg="green.400" color='blackAlpha.900'  onClick={OpenModal}>Create Driver</Button>
+          <Button bg="green.400" color='blackAlpha.900'  onClick={OpenModal}>Create Truck</Button>
         }
         
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -51,13 +55,15 @@ const ExpandDriverModal = (driver) => {
             <ModalHeader>Users</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-            <form onSubmit={expandDriver}>
+            <form onSubmit={expandTruck}>
                 <FormControl >
                     <input name="id" type="text" hidden value={id} onChange={evt => setid(evt.target.value)}/>
                     <FormLabel>Name</FormLabel>
-                    <Input name="name" type='text' placeholder="Name"  value={firstName} onChange={evt => setfirstName(evt.target.value)}/>
-                    <FormLabel>Last Name</FormLabel>
-                    <Input name="lastName" type='text' placeholder="Lastname" value={lastName} onChange={evt => setlastName(evt.target.value)}/>
+                    <Input name="name" type='text' placeholder="Name"  value={name} onChange={evt => setname(evt.target.value)}/>
+                    <FormLabel>Brand</FormLabel>
+                    <Input name="brand" type='text' placeholder="Brand" value={brand} onChange={evt => setbrand(evt.target.value)}/>
+                    <FormLabel>Number</FormLabel>
+                    <Input name="number" type='text' placeholder="Number" value={number} onChange={evt => setnumber(evt.target.value)}/>
                 </FormControl>
                 <ModalFooter>
                     <Button colorScheme='red' mr={3} onClick={onClose}>
@@ -73,4 +79,4 @@ const ExpandDriverModal = (driver) => {
     )
   }
 
-export default ExpandDriverModal
+export default ExpandTruckModal

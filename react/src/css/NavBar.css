@@ -40,7 +40,7 @@ a.active, a:hover{
     display: none;
 }
 
-@media(max-width:1024px){
+@media(max-width:1177px){
     .drawer{
         display: block;
     }
@@ -78,3 +78,4 @@ a.active, a:hover{
         padding: 0 0px;
     }
 }
+

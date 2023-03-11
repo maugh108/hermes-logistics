@@ -1,29 +1,47 @@
-import { Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, Button, Input, } from '@chakra-ui/react'
+import { HamburgerIcon, PhoneIcon } from '@chakra-ui/icons'
+import {
+    Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    useDisclosure,
+    Button,
+    Input,
+  } from '@chakra-ui/react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../css/Drawer.css'
 const AppDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
-    return (
+    const navigate = useNavigate()
+    const logout = () => {
+        localStorage.removeItem('token')
+        navigate('/', {replace:true})
+    }
+    return(
         <>
             <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
-                Open
+                <HamburgerIcon/>
             </Button>
-            <Drawer isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef} colorScheme='teal'>
+            <Drawer isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef} colorScheme='teal' >
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerCloseButton />
-                    <DrawerHeader>Menu</DrawerHeader>
+                <DrawerCloseButton />
+                <DrawerHeader>Menu</DrawerHeader>
 
-                    <DrawerBody>
-                        <div><link to='/'>Dashboard</link></div>
-                        <div><link to='/orders'>Orders</link></div>
-                        <div><link to='/trucks'>Trucks</link></div>
-                        <div><link to='/trailers'>Trailers</link></div>
-                        <div><link to='/users'>Users</link></div>
-                        <div><link to='/drivers'>Drivers</link></div>
-                    </DrawerBody>
+                <DrawerBody>
+                    <div><Link to="/" >Dashboard</Link> </div>
+                    <div><Link to="/orders" >Orders</Link> </div>
+                    <div><Link to="/trucks" >Trucks</Link></div>
+                    <div><Link to="/trailers">Trailers</Link></div>
+                    <div><Link to="/users">Users</Link></div>
+                    <div><Link to="/drivers">Drivers</Link></div>
+                    <div className='pointer' onClick={logout}>Logout</div>
+                </DrawerBody>
                 </DrawerContent>
             </Drawer>
         </>

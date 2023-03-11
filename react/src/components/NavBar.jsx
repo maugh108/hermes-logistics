@@ -1,11 +1,18 @@
+import { chakra } from "@chakra-ui/react"
 import React, { useEffect } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import '../css/NavBar.css'
 import AppDrawer from "./AppDrawer"
+import { FaSignOutAlt } from "react-icons/fa";
 const NavBar = () => {
-    const location = useLocation()
+    const navigate = useNavigate()
     useEffect(()=> {
     }, [location])
+    const logout = () => {
+        localStorage.removeItem('token')
+        navigate('/', {replace:true})
+    }
+    const CFaSignOutAlt = chakra(FaSignOutAlt)
     return (
         <nav>
             <label className="logo">Hemes Logistics</label>
@@ -17,6 +24,7 @@ const NavBar = () => {
                 <li className="nav-item"><Link to="/trailers" className={location.pathname === '/trailers' ? 'active' : ''}>Trailers</Link></li>
                 <li className="nav-item"><Link to="/users" className={location.pathname === '/users' ? 'active' : ''}>Users</Link></li>
                 <li className="nav-item"><Link to="/drivers" className={location.pathname === '/drivers' ? 'active' : ''}>Drivers</Link></li>
+                <li className="nav-item pointer" onClick={logout}><CFaSignOutAlt /></li>
             </ul>
         </nav>
     )

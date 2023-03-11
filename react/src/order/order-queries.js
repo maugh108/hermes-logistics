@@ -6,6 +6,22 @@ query{
     number
     pickup
     status
+    trailer{
+      _id
+      number
+      type
+    }
+    truck{
+      _id
+      name
+      brand
+      number
+    }
+    drivers{
+      _id
+      firstName
+      lastName
+    }
   }
 }
 `

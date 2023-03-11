@@ -4,11 +4,14 @@ import { buildSchema  } from 'graphql'
 import schema from  './schema'
 import {connect} from './database'
 import cors from 'cors'
+import {verifyToken} from './middlewares'
+import { checkToken, defaultUser, login } from './loginControler'
 const PORT = 3000 
 
 const app = express()
 app.use(cors());
-const  allowedOrigins = ['http://localhost:5173','http://localhost:3000','http://127.0.0.1:5173'];
+app.use(express.json())
+const allowedOrigins = ['http://localhost:5173','http://localhost:3000','http://127.0.0.1:5173'];
 app.use(cors({
   origin: function(origin, callback){
     if(!origin) return callback(null, true);
@@ -26,11 +29,14 @@ const root = {
       return 'Hello world!';
     },
   };
-  
+app.use('/login', login)
+app.use('/check-token',  verifyToken, checkToken)
+app.use('/default-admin', defaultUser)
+
 /**
  * Return a graphql tool
  */
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', verifyToken, graphqlHTTP({
     schema: schema,
     rootValue: root,
     graphiql: true,

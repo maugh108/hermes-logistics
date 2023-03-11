@@ -20,4 +20,12 @@ const userModel = new Schema({
     age: Number
 })
 
+userModel.statics.encryptPassword = async (password) => {
+    const salt  = await bcrypt.genSalt(10)
+    return await bcrypt.hash(password, salt)
+}
+userModel.statics.comparePassword = async (password, receivedPassword) => {
+    return await bcrypt.compare(password, receivedPassword)
+}
+
 export default model('User', userModel )

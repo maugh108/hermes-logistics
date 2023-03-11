@@ -4,6 +4,8 @@ import Order from './models/Order';
 import Trailer from './models/Trailer';
 import Truck from './models/Truck';
 import Driver from './models/Driver';
+import jwt from 'jsonwebtoken'
+import config from './config/auth.config'
 export const resolvers = { 
     Query: {
         hello: () => {
@@ -38,7 +40,6 @@ export const resolvers = {
             return await Driver.find()
         }
     },
-
     Mutation: {
         createTask(_, { input }){
             input._id = task.length
@@ -46,18 +47,28 @@ export const resolvers = {
             return input
         },
         async createUser(_, { input }){
-            console.log(input)
             let user = await User.findById(input.id)
-            if(!user) user = new User(input)
-            else{
+            if(!user) user = new User()
                 user.firstName = input.firstName
                 user.lastName = input.lastName
                 user.username = input.username
-                user.password = input.password
+                user.password = await User.encryptPassword(input.password)
                 user.age = input.age
-            }
             await user.save()
+            const token = jwt.sign({id: user._id}, config.SECRET,{
+                expiresIn: 86400 //24hrs
+            })
             return user
+        },
+        async login(_, {input}){
+            const user = await User.findOne({username: input.username})
+            if(!user) throw new Error('Cannot Find User');
+            const matchPassword = await User.comparePassword(input.password, user.password)
+            if(!matchPassword) throw new Error('Incorrect Password');
+            const token = jwt.sign({id: user._id}, config.SECRET,{
+                expiresIn: 86400 //24hrs
+            })
+            return {token:token}
         },
         async createOrder(_, {input}){
             let order = await Order.findById(input.id)
@@ -72,6 +83,11 @@ export const resolvers = {
             order.truck = truck
             order.drivers = drivers
             await order.save()
+            return order
+        },
+        async deleteOrder  (_, {input}) {
+            const id = input
+            const order = await Order.findByIdAndDelete(id)
             return order
         },
         async createTrailer(_, {input}){
@@ -105,11 +121,6 @@ export const resolvers = {
             await driver.save()
             return driver
         },
-        async deleteOrder  (_, {input}) {
-            const id = input
-            const order = await Order.findByIdAndDelete(id)
-            return order
-        },
         async deleteTrailer  (_, {input}) {
             const id = input
             const trailer = await Trailer.findByIdAndDelete(id)
@@ -129,6 +140,6 @@ export const resolvers = {
             const id = input
             const driver = await Driver.findByIdAndDelete(id)
             return driver
-        }        
+        }
     }
 };

@@ -1,16 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
-    Button,
-    useDisclosure,
-  } from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer, Button, useDisclosure, } from '@chakra-ui/react'
 import CreateOrderModal from "./components/modals/CreateOrderModal";
 import { useFetchOrder, useFetchOrders } from "./order/order-hooks";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
@@ -52,12 +41,17 @@ const Orders = () => {
                         <Th>Number</Th>
                         <Th>Pickup</Th>
                         <Th>Status</Th>
+                        <Th>Truck</Th>
+                        <Th>Trailer</Th>
+                        <Th>Driver</Th>
                         <Th></Th>
                     </Tr>
                     </Thead>
                     <Tbody>
                         {loading ?
                             <Tr>
+                                <Td>Loading</Td>
+                                <Td>Loading</Td>
                                 <Td>Loading</Td>
                                 <Td>Loading</Td>
                                 <Td>Loading</Td>
@@ -69,6 +63,13 @@ const Orders = () => {
                                     <Td>{o.number}</Td>
                                     <Td>{o.pickup}</Td>
                                     <Td>{o.status}</Td>
+                                    <Td>{`${o.truck.name} ${o.truck.brand} ${o.truck.number}`}</Td>
+                                    <Td>{o.trailer.number} - {o.trailer.type}</Td>
+                                    <Td>{o.drivers.map(driver => {
+                                        return(
+                                            <div key={driver._id}>{driver.firstName}</div>
+                                        )
+                                    })}</Td>
                                     <Td>
                                         <ExpandOrderModal order={o}/>
                                         <DeleteIcon color='red.500' boxSize={6}  className="pointer" onClick={() => {DeleteOrder(o)}}/>

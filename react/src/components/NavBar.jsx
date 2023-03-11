@@ -5,7 +5,6 @@ import AppDrawer from "./AppDrawer"
 const NavBar = () => {
     const location = useLocation()
     useEffect(()=> {
-        console.log(location)
     }, [location])
     return (
         <nav>
@@ -17,6 +16,7 @@ const NavBar = () => {
                 <li className="nav-item"><Link to="/trucks" className={location.pathname === '/trucks' ? 'active' : ''}>Trucks</Link></li>
                 <li className="nav-item"><Link to="/trailers" className={location.pathname === '/trailers' ? 'active' : ''}>Trailers</Link></li>
                 <li className="nav-item"><Link to="/users" className={location.pathname === '/users' ? 'active' : ''}>Users</Link></li>
+                <li className="nav-item"><Link to="/drivers" className={location.pathname === '/drivers' ? 'active' : ''}>Drivers</Link></li>
             </ul>
         </nav>
     )

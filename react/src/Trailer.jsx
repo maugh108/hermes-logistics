@@ -1,16 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
-    Button,
-    useDisclosure,
-  } from '@chakra-ui/react'
+import { Table, Thead, Tbody, Tr, Th, Td, TableCaption, TableContainer, Button, useDisclosure, } from '@chakra-ui/react'
 import CreateTrailerModal from './components/modals/CreateTrailerModal'
 import ExpandTrailerModal from './components/modals/ExpandTrailerModal'
 import { useFetchOrder, useFetchOrders } from "./order/order-hooks";
@@ -32,7 +21,6 @@ const Trailer = () => {
         removeTrailer({variables})
     }
     useEffect(() => {
-        console.log(data)
     }, [data])
     return (
         <>

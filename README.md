@@ -6,7 +6,7 @@ https://github.com/maugh108/hermes-logistics
 
 Hermes logistics V 3.0
 
-Este sistema en su version 3.0 p
+Este sistema en su version 3.0 hace uso de bases de datos no relacionales para almacenar la información de los órdenes creadas.
 
 En la parte de la esquina superior izquierda podemos ver un menu deplegable que apresionas nos va a motrar 4 opciones que son:
 

@@ -43,7 +43,7 @@ Presinando este boton se abrira otra pantalla que nos va a solicitar la informac
 
 Esta interancion es la misma en las siguientes 2 opciones que son Trailer y Conductores.
 
-## Instalación
+## Instalación 💾
 
 Instalar raíz y \react con npm
 

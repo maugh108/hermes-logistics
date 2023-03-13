@@ -36,7 +36,7 @@ const CreateTrailerModal = () => {
             <form onSubmit={expandOrder}>
                 <FormControl >
                     <FormLabel>Trailer Number</FormLabel>
-                    <Input name="number" type='text' placeholder="Trailer number"/>
+                    <Input name="number" type='text' placeholder="Trailer Number"/>
                     <FormLabel>Trailer Type</FormLabel>
                     <Select name="type" >
                         <option defaultValue disabled>Trailer Type</option>

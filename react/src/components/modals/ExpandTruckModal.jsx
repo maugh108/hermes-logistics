@@ -52,14 +52,14 @@ const ExpandTruckModal = (truck) => {
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Users</ModalHeader>
+            <ModalHeader>Truck</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
             <form onSubmit={expandTruck}>
                 <FormControl >
                     <input name="id" type="text" hidden value={id} onChange={evt => setid(evt.target.value)}/>
-                    <FormLabel>Name</FormLabel>
-                    <Input name="name" type='text' placeholder="Name"  value={name} onChange={evt => setname(evt.target.value)}/>
+                    <FormLabel>License Plate</FormLabel>
+                    <Input name="name" type='text' placeholder="License Plate"  value={name} onChange={evt => setname(evt.target.value)}/>
                     <FormLabel>Brand</FormLabel>
                     <Input name="brand" type='text' placeholder="Brand" value={brand} onChange={evt => setbrand(evt.target.value)}/>
                     <FormLabel>Number</FormLabel>
@@ -69,7 +69,7 @@ const ExpandTruckModal = (truck) => {
                     <Button colorScheme='red' mr={3} onClick={onClose}>
                         Close
                     </Button>
-                    <Button colorScheme='blue' type='submit' >Save</Button>
+                    <Button colorScheme='blue' type='submit'>Save</Button>
                 </ModalFooter>
             </form>
             </ModalBody>

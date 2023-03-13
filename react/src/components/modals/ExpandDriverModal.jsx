@@ -48,7 +48,7 @@ const ExpandDriverModal = (driver) => {
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Users</ModalHeader>
+            <ModalHeader>Drivers</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
             <form onSubmit={expandDriver}>
